@@ -36,6 +36,7 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Widget> scoreKeeper = [];
+  int correctAnswers = 0;
 
   QuiZDB db = QuiZDB();
 
@@ -112,6 +113,7 @@ class _QuizPageState extends State<QuizPage> {
     if (db.hasNextQuestion()){
       setState(() {
         if (db.getQuestionAnswer() == answer) {
+          correctAnswers++;
           scoreKeeper.add(
             const Icon(
               Icons.check,
@@ -137,11 +139,12 @@ class _QuizPageState extends State<QuizPage> {
     await Alert (
       context: context,
       title: "Game Over",
-      desc: "Show correct and wrong answer numbers"
+      desc: 'You got $correctAnswers out of ${db.numberOfQuestions()} questions correct'
     ).show();
     setState(() {
       db.reset();
       scoreKeeper.clear();
+      correctAnswers = 0;
     });
   }
 }

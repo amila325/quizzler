@@ -57,4 +57,8 @@ class QuiZDB {
   void reset() {
     _currentIndex = 0;
   }
+
+  int numberOfQuestions() {
+    return _questionBank.length;
+  }
 }
